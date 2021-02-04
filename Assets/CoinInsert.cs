@@ -10,6 +10,7 @@ public class CoinInsert : MonoBehaviour
     private Transform coinHolder;
     public SpriteRenderer[] coins;
     public Controller controller;
+    public bool hasWon = false;
 
     void Start()
     {
@@ -32,19 +33,24 @@ public class CoinInsert : MonoBehaviour
 
     public void ShowTurnColor()
     {
-        if (controller.turn == 2)
+        if (hasWon == true)
         {
-                coins[0].enabled = false;
-                coins[1].enabled = true;
+            coins[0].enabled = false;
+            coins[1].enabled = false;
         }
-        else
+
+        if (controller.turn == 2 && hasWon == false)
         {
-            {
-                coins[0].enabled = true;
-                coins[1].enabled = false;
-            }
+            coins[0].enabled = false;
+            coins[1].enabled = true;
+        }
+        else if (hasWon == false)
+        {
+            coins[0].enabled = true;
+            coins[1].enabled = false;
         }
     }
+
 
     public int GetInsertPositionConvert(int insertPosition)
     {

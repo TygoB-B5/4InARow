@@ -60,20 +60,20 @@ public class Wintest : MonoBehaviour
         {
             for (int siderow = 0; siderow <= 6; siderow++)
             {
-                fourrowX = 0;
+                fourrowY = 0;
                 for (int switchrowUp = 0; switchrowUp <= 5; switchrowUp++)
                 {
                     if (cords[siderow, switchrowUp] == turn)
                     {
-                        fourrowX = fourrowX + 1;
-                        if (fourrowX >= 4)
+                        fourrowY = fourrowY + 1;
+                        if (fourrowY >= 4)
                         {
                             Win();
                         }
                     }
                     else
                     {
-                        fourrowX = 0;
+                        fourrowY = 0;
                     }
 
                 }
@@ -115,32 +115,30 @@ public class Wintest : MonoBehaviour
 
     void TestDiagonal2()
     {
-
         fourrowDiag2 = 0;
         int[,] cords = controller.cords;
         for (int turn = 1; turn <= 2; turn++)
         {
             for (int siderow = 0; siderow <= 3; siderow++)
             {
-                for (int uprow = -1; uprow <= 2; uprow++)
+                for (int uprow = 0; uprow <= 2; uprow++)
                 {
                     fourrowDiag2 = 0;
-                    
-                    for (int diagonal = 6; diagonal <= 4; diagonal--)
+                    for (int diagonal = 0; diagonal <= 3; diagonal++)
                     {
-                        hordown = uprow;
-                        if (cords[hordown , diagonal] == turn)
+                        if (cords[diagonal + siderow, -diagonal + 3 + uprow] == turn)
+                        {
+                            fourrowDiag2 = fourrowDiag2 + 1;
+                            if (fourrowDiag2 >= 4)
                             {
-                                fourrowDiag2 = fourrowDiag2 + 1;
-                                if (fourrowDiag2 >= 4)
-                                {
-                                    Win();
-                                }
+                                Win();
                             }
-                            else
-                            {
-                                fourrowDiag2 = 0;
-                            }
+                        }
+                        else
+                        {
+                            fourrowDiag2 = 0;
+                        }
+
                     }
                 }
             }
@@ -151,6 +149,6 @@ public class Wintest : MonoBehaviour
 
     void Win()
     {
-        Debug.Log("win");
+        controller.Won();
     }
 }
